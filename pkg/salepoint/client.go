@@ -4,6 +4,9 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
+	"reflect"
+	"strconv"
 
 	"github.com/mercadopago/sdk-go/pkg/config"
 	"github.com/mercadopago/sdk-go/pkg/internal/httpclient"
@@ -11,18 +14,43 @@ import (
 
 const baseURL = "https://api.mercadopago.com/pos"
 
-func buildSearchURL(externalSalePointID string) string {
-	if externalSalePointID != "" {
-		return baseURL + fmt.Sprintf("?external_id=%s", externalSalePointID)
+func buildSearchURL(request SearchRequest) string {
+	return baseURL + fmt.Sprintf("?%s", generateQueryParams(request))
+}
+
+func buildGetURL(salePointID string) string {
+	return baseURL + fmt.Sprintf("/%s", salePointID)
+}
+
+func generateQueryParams(request SearchRequest) string {
+	queryParams := url.Values{}
+	v := reflect.ValueOf(request)
+	t := v.Type()
+
+	for i := 0; i < v.NumField(); i++ {
+		fieldName := t.Field(i).Tag.Get("json")
+		fieldValue := v.Field(i).Interface()
+
+		// Si el valor del campo no es cero o cadena vacía, lo agregamos como parámetro de consulta
+		if !reflect.DeepEqual(fieldValue, reflect.Zero(v.Field(i).Type()).Interface()) && fieldValue != "" {
+			switch fieldValue := fieldValue.(type) {
+			case bool:
+				queryParams.Add(fieldName, strconv.FormatBool(fieldValue))
+			case int:
+				queryParams.Add(fieldName, strconv.Itoa(fieldValue))
+			case string:
+				queryParams.Add(fieldName, fieldValue)
+			}
+		}
 	}
 
-	return baseURL
+	return queryParams.Encode()
 }
 
 // Client contains the method to interact with sale points API.
 type Client interface {
 	Create(ctx context.Context, request CreateRequest) (*CreateResponse, error)
-	Get(ctx context.Context, externalSalePointID string) (*SearchResponse, error)
+	Search(ctx context.Context, request SearchRequest) (*SearchResponse, error)
 }
 
 type client struct {
@@ -47,10 +75,23 @@ func (c *client) Create(ctx context.Context, request CreateRequest) (*CreateResp
 	return resource, nil
 }
 
-func (c *client) Get(ctx context.Context, externalSalePointID string) (*SearchResponse, error) {
+func (c *client) Search(ctx context.Context, request SearchRequest) (*SearchResponse, error) {
 	requestData := httpclient.RequestData{
 		Method: http.MethodGet,
-		URL:    buildSearchURL(externalSalePointID),
+		URL:    buildSearchURL(request),
+	}
+	resource, err := httpclient.DoRequest[*SearchResponse](ctx, c.cfg, requestData)
+	if err != nil {
+		return nil, err
+	}
+
+	return resource, nil
+}
+
+func (c *client) Get(ctx context.Context, salePointID string) (*SearchResponse, error) {
+	requestData := httpclient.RequestData{
+		Method: http.MethodGet,
+		URL:    buildGetURL(salePointID),
 	}
 	resource, err := httpclient.DoRequest[*SearchResponse](ctx, c.cfg, requestData)
 	if err != nil {

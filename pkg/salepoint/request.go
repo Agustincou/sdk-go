@@ -8,3 +8,12 @@ type CreateRequest struct {
 	Name            string `json:"name"`
 	StoreID         int    `json:"store_id"`
 }
+
+type SearchRequest struct {
+	UserID          int    `json:"user_id,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Category        int    `json:"category,omitempty"`
+	StoreID         string `json:"store_id,omitempty"`
+	ExternalID      string `json:"external_id,omitempty"`
+	ExternalStoreID string `json:"external_store_id,omitempty"`
+}
