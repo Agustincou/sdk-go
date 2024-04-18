@@ -1,6 +1,6 @@
 package merchantorder
 
-import "time"
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 // UpdateRequest represents merchant order update.
 type UpdateRequest struct {
@@ -24,9 +24,9 @@ type UpdateRequest struct {
 type ShipmentRequest struct {
 	ReceiverAddress  *ReceiverAddressRequest `json:"receiver_address,omitempty"`
 	ShippingOption   *ShippingOptionRequest  `json:"shipping_option,omitempty"`
-	DateCreated      *time.Time              `json:"date_created,omitempty"`
-	LastModified     *time.Time              `json:"last_modified,omitempty"`
-	DateFirstPrinted *time.Time              `json:"date_first_printed,omitempty"`
+	DateCreated      *date.ApiTimeFormat     `json:"date_created,omitempty"`
+	LastModified     *date.ApiTimeFormat     `json:"last_modified,omitempty"`
+	DateFirstPrinted *date.ApiTimeFormat     `json:"date_first_printed,omitempty"`
 
 	ShippingType      string           `json:"shipping_type,omitempty"`
 	ShippingMode      string           `json:"shipping_mode,omitempty"`
@@ -93,7 +93,7 @@ type CountryRequest struct {
 
 // EstimatedDeliveryRequest represents estimated delivery information.
 type EstimatedDeliveryRequest struct {
-	Date *time.Time `json:"date,omitempty"`
+	Date *date.ApiTimeFormat `json:"date,omitempty"`
 
 	TimeFrom string `json:"time_from,omitempty"`
 	TimeTo   string `json:"time_to,omitempty"`

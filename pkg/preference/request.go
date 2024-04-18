@@ -1,8 +1,6 @@
 package preference
 
-import (
-	"time"
-)
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 // Request contains parameters to create/update a preference.
 type Request struct {
@@ -11,9 +9,9 @@ type Request struct {
 	Payer               *PayerRequest               `json:"payer,omitempty"`
 	PaymentMethods      *PaymentMethodsRequest      `json:"payment_methods,omitempty"`
 	Shipments           *ShipmentsRequest           `json:"shipments,omitempty"`
-	DateOfExpiration    *time.Time                  `json:"date_of_expiration,omitempty"`
-	ExpirationDateFrom  *time.Time                  `json:"expiration_date_from,omitempty"`
-	ExpirationDateTo    *time.Time                  `json:"expiration_date_to,omitempty"`
+	DateOfExpiration    *date.ApiTimeFormat         `json:"date_of_expiration,omitempty"`
+	ExpirationDateFrom  *date.ApiTimeFormat         `json:"expiration_date_from,omitempty"`
+	ExpirationDateTo    *date.ApiTimeFormat         `json:"expiration_date_to,omitempty"`
 	Items               []ItemRequest               `json:"items,omitempty"`
 	Taxes               []TaxRequest                `json:"taxes,omitempty"`
 	Tracks              []TrackRequest              `json:"tracks,omitempty"`
@@ -62,7 +60,7 @@ type PayerRequest struct {
 	Phone          *PhoneRequest          `json:"phone,omitempty"`
 	Identification *IdentificationRequest `json:"identification,omitempty"`
 	Address        *AddressRequest        `json:"address,omitempty"`
-	DateCreated    *time.Time             `json:"date_created,omitempty"`
+	DateCreated    *date.ApiTimeFormat    `json:"date_created,omitempty"`
 
 	Name    string `json:"name,omitempty"`
 	Surname string `json:"surname,omitempty"`

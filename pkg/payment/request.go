@@ -1,8 +1,6 @@
 package payment
 
-import (
-	"time"
-)
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 // Request represents a request for creating or updating a payment.
 type Request struct {
@@ -13,7 +11,7 @@ type Request struct {
 	TransactionDetails *TransactionDetailsRequest `json:"transaction_details,omitempty"`
 	PointOfInteraction *PointOfInteractionRequest `json:"point_of_interaction,omitempty"`
 	PaymentMethod      *PaymentMethodRequest      `json:"payment_method,omitempty"`
-	DateOfExpiration   *time.Time                 `json:"date_of_expiration,omitempty"`
+	DateOfExpiration   *date.ApiTimeFormat        `json:"date_of_expiration,omitempty"`
 	Taxes              []TaxRequest               `json:"taxes,omitempty"`
 
 	CallbackURL           string         `json:"callback_url,omitempty"`
@@ -56,8 +54,8 @@ type AdditionalInfoRequest struct {
 type AdditionalInfoPayerRequest struct {
 	Phone            *AdditionalInfoPayerPhoneRequest   `json:"phone,omitempty"`
 	Address          *AdditionalInfoPayerAddressRequest `json:"address,omitempty"`
-	RegistrationDate *time.Time                         `json:"registration_date,omitempty"`
-	LastPurchase     *time.Time                         `json:"last_purchase,omitempty"`
+	RegistrationDate *date.ApiTimeFormat                `json:"registration_date,omitempty"`
+	LastPurchase     *date.ApiTimeFormat                `json:"last_purchase,omitempty"`
 
 	FirstName             string `json:"first_name,omitempty"`
 	LastName              string `json:"last_name,omitempty"`
@@ -109,7 +107,7 @@ type BarcodeRequest struct {
 // ItemRequest represents an item request within AdditionalInfoRequest.
 type ItemRequest struct {
 	CategoryDescriptor *CategoryDescriptorRequest `json:"category_descriptor,omitempty"`
-	EventDate          *time.Time                 `json:"event_date,omitempty"`
+	EventDate          *date.ApiTimeFormat        `json:"event_date,omitempty"`
 
 	ID          string  `json:"id,omitempty"`
 	Title       string  `json:"title,omitempty"`
@@ -143,8 +141,8 @@ type IdentificationRequest struct {
 
 // RouteRequest represents route request within CategoryDescriptorRequest.
 type RouteRequest struct {
-	DepartureDateTime *time.Time `json:"departure_date_time,omitempty"`
-	ArrivalDateTime   *time.Time `json:"arrival_date_time,omitempty"`
+	DepartureDateTime *date.ApiTimeFormat `json:"departure_date_time,omitempty"`
+	ArrivalDateTime   *date.ApiTimeFormat `json:"arrival_date_time,omitempty"`
 
 	Departure   string `json:"departure,omitempty"`
 	Destination string `json:"destination,omitempty"`
@@ -270,7 +268,7 @@ type FeeRequest struct {
 
 // DiscountRequest represents discount request within RulesRequest.
 type DiscountRequest struct {
-	LimitDate *time.Time `json:"limit_date,omitempty"`
+	LimitDate *date.ApiTimeFormat `json:"limit_date,omitempty"`
 
 	Type  string  `json:"type,omitempty"`
 	Value float64 `json:"value,omitempty"`

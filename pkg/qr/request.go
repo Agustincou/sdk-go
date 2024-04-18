@@ -1,6 +1,6 @@
 package qr
 
-import "time"
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 type Item struct {
 	SKUNumber   string  `json:"sku_number,omitempty"`
@@ -17,11 +17,11 @@ type CreateRequest struct {
 	CashOut struct {
 		Amount int `json:"amount,omitempty"`
 	} `json:"cash_out,omitempty"`
-	Description       string     `json:"description,omitempty"`
-	ExternalReference string     `json:"external_reference,omitempty"`
-	ExpirationDate    *time.Time `json:"expiration_date,omitempty"`
-	Items             []Item     `json:"items,omitempty"`
-	NotificationURL   string     `json:"notification_url,omitempty"`
-	Title             string     `json:"title,omitempty"`
-	TotalAmount       float64    `json:"total_amount,omitempty"`
+	Description       string              `json:"description,omitempty"`
+	ExternalReference string              `json:"external_reference,omitempty"`
+	ExpirationDate    *date.ApiTimeFormat `json:"expiration_date,omitempty"`
+	Items             []Item              `json:"items,omitempty"`
+	NotificationURL   string              `json:"notification_url,omitempty"`
+	Title             string              `json:"title,omitempty"`
+	TotalAmount       float64             `json:"total_amount,omitempty"`
 }
