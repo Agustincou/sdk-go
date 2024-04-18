@@ -13,10 +13,12 @@ type Item struct {
 	TotalAmount float64 `json:"total_amount,omitempty"`
 }
 
+type CashOut struct {
+	Amount int `json:"amount,omitempty"`
+}
+
 type CreateRequest struct {
-	CashOut struct {
-		Amount int `json:"amount,omitempty"`
-	} `json:"cash_out,omitempty"`
+	CashOut           *CashOut            `json:"cash_out,omitempty"`
 	Description       string              `json:"description,omitempty"`
 	ExternalReference string              `json:"external_reference,omitempty"`
 	ExpirationDate    *date.ApiTimeFormat `json:"expiration_date,omitempty"`
