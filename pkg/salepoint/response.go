@@ -1,4 +1,4 @@
-package cardtoken
+package store
 
 import "time"
 

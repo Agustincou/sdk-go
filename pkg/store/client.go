@@ -1,4 +1,4 @@
-package cardtoken
+package store
 
 import (
 	"context"
@@ -16,7 +16,11 @@ func buildCreateURL(userID string) string {
 }
 
 func buildSearchURL(userID, externalStoreID string) string {
-	return fmt.Sprintf(templateURL, userID) + fmt.Sprintf("/search?external_id=%s", externalStoreID)
+	if externalStoreID != "" {
+		return fmt.Sprintf(templateURL, userID) + fmt.Sprintf("/search?external_id=%s", externalStoreID)
+	}
+
+	return fmt.Sprintf(templateURL, userID)
 }
 
 type Client interface {

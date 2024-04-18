@@ -1,4 +1,4 @@
-package cardtoken
+package store
 
 type BusinessHour struct {
 	Open  string `json:"open"`

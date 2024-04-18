@@ -1,4 +1,4 @@
-package cardtoken
+package store
 
 type CreateRequest struct {
 	Category        int    `json:"category"`

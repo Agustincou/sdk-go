@@ -1,4 +1,4 @@
-package cardtoken
+package store
 
 import (
 	"context"
@@ -12,7 +12,11 @@ import (
 const baseURL = "https://api.mercadopago.com/pos"
 
 func buildSearchURL(externalSalePointID string) string {
-	return baseURL + fmt.Sprintf("?external_id=%s", externalSalePointID)
+	if externalSalePointID != "" {
+		return baseURL + fmt.Sprintf("?external_id=%s", externalSalePointID)
+	}
+
+	return baseURL
 }
 
 // Client contains the method to interact with sale points API.
