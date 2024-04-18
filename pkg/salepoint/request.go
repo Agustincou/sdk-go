@@ -1,4 +1,4 @@
-package store
+package salepoint
 
 type CreateRequest struct {
 	Category        int    `json:"category"`
