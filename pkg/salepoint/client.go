@@ -19,7 +19,7 @@ func buildSearchURL(request SearchRequest) string {
 }
 
 func buildGetURL(salePointID string) string {
-	return baseURL + fmt.Sprintf("/%s", salePointID)
+	return baseURL + fmt.Sprintf("/%s", url.QueryEscape(salePointID))
 }
 
 func generateQueryParams(request SearchRequest) string {

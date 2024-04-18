@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/mercadopago/sdk-go/pkg/config"
 	"github.com/mercadopago/sdk-go/pkg/internal/httpclient"
@@ -18,7 +19,7 @@ func buildCreateURL(userID string) string {
 
 func buildSearchURL(userID, externalStoreID string) string {
 	if externalStoreID != "" {
-		return fmt.Sprintf(templateURL, userID) + fmt.Sprintf("/search?external_id=%s", externalStoreID)
+		return fmt.Sprintf(templateURL, userID) + fmt.Sprintf("/search?external_id=%s", url.QueryEscape(externalStoreID))
 	}
 
 	return fmt.Sprintf(templateURL, userID)
