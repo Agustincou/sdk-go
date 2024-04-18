@@ -8,11 +8,6 @@ type QR struct {
 	TemplateImage string `json:"template_image"`
 }
 
-type QRCode struct {
-	Site   string `json:"site"`
-	QRCode string `json:"qr_code"`
-}
-
 type CreateResponse struct {
 	ID              int       `json:"id"`
 	QR              QR        `json:"qr"`
@@ -28,7 +23,7 @@ type CreateResponse struct {
 	ExternalStoreID string    `json:"external_store_id"`
 	ExternalID      string    `json:"external_id"`
 	Site            string    `json:"site"`
-	QRCode          QRCode    `json:"qr_code"`
+	QRCode          string    `json:"qr_code"`
 }
 
 type Paging struct {

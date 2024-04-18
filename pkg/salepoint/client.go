@@ -35,11 +35,11 @@ func generateQueryParams(request SearchRequest) string {
 		if !reflect.DeepEqual(fieldValue, reflect.Zero(v.Field(i).Type()).Interface()) && fieldValue != "" {
 			switch fieldValue := fieldValue.(type) {
 			case bool:
-				queryParams.Add(fieldName, url.QueryEscape(strconv.FormatBool(fieldValue)))
+				queryParams.Add(fieldName, strconv.FormatBool(fieldValue))
 			case int:
-				queryParams.Add(fieldName, url.QueryEscape(strconv.Itoa(fieldValue)))
+				queryParams.Add(fieldName, strconv.Itoa(fieldValue))
 			case string:
-				queryParams.Add(fieldName, url.QueryEscape(fieldValue))
+				queryParams.Add(fieldName, fieldValue)
 			}
 		}
 	}
