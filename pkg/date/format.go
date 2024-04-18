@@ -26,6 +26,6 @@ func (ct *ApiTimeFormat) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (ct ApiTimeFormat) MarshalJSON() ([]byte, error) {
+func (ct *ApiTimeFormat) MarshalJSON() ([]byte, error) {
 	return []byte(ct.Format(apiTimeFormat)), nil
 }
