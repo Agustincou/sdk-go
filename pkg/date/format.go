@@ -13,7 +13,7 @@ type ApiTimeFormat struct {
 }
 
 func (ct ApiTimeFormat) String() string {
-	return time.Time(ct.Time).Format(apiTimeFormat)
+	return ct.Format(apiTimeFormat)
 }
 
 func (ct *ApiTimeFormat) UnmarshalJSON(data []byte) error {
@@ -26,6 +26,6 @@ func (ct *ApiTimeFormat) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (ct *ApiTimeFormat) MarshalJSON() ([]byte, error) {
-	return []byte(ct.Format(apiTimeFormat)), nil
+func (ct ApiTimeFormat) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + ct.Format(apiTimeFormat) + `"`), nil
 }
