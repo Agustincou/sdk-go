@@ -43,9 +43,11 @@ type StateDetailsResponse struct {
 }
 
 type CityDetailsResponse struct {
-	ID             string      `json:"id"`
-	Name           string      `json:"name"`
-	State          State       `json:"state"`
-	Country        Country     `json:"country"`
-	GeoInformation GeoLocation `json:"geo_information"`
+	ID             string  `json:"id"`
+	Name           string  `json:"name"`
+	State          State   `json:"state"`
+	Country        Country `json:"country"`
+	GeoInformation struct {
+		Location GeoLocation `json:"location"`
+	} `json:"geo_information"`
 }
