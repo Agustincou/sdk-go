@@ -41,3 +41,9 @@ type SearchResponse struct {
 	Paging  Paging                 `json:"paging"`
 	Results []SearchResponseResult `json:"results"`
 }
+
+type SearchErrorResponse struct {
+	Error   string `json:"error"`
+	Message string `json:"message"`
+	Status  int    `json:"status"`
+}

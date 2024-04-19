@@ -2,12 +2,14 @@ package store
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
 
 	"github.com/mercadopago/sdk-go/pkg/config"
 	"github.com/mercadopago/sdk-go/pkg/internal/httpclient"
+	"github.com/mercadopago/sdk-go/pkg/mperror"
 )
 
 const templateURL = "https://api.mercadopago.com/users/%d/stores"
@@ -64,6 +66,15 @@ func (c *client) Search(ctx context.Context, userID int, externalStoreID string)
 	}
 	resource, err := httpclient.DoRequest[*SearchResponse](ctx, c.cfg, requestData)
 	if err != nil {
+		if mpError, isMPError := err.(*mperror.ResponseError); isMPError {
+			searchError := SearchErrorResponse{}
+			if unmErr := json.Unmarshal([]byte(mpError.Message), &searchError); unmErr == nil {
+				if searchError.Error == "store_not_found" {
+					return &SearchResponse{Paging: Paging{}, Results: []SearchResponseResult{}}, nil // Recover for 404 Store Not Found
+				}
+			}
+		}
+
 		return nil, err
 	}
 
