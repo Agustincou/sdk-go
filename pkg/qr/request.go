@@ -7,10 +7,10 @@ type Item struct {
 	Category    string  `json:"category,omitempty"`
 	Title       string  `json:"title,omitempty"`
 	Description string  `json:"description,omitempty"`
-	UnitPrice   float64 `json:"unit_price,omitempty"`
-	Quantity    int     `json:"quantity,omitempty"`
+	UnitPrice   float64 `json:"unit_price"`
+	Quantity    int     `json:"quantity"`
 	UnitMeasure string  `json:"unit_measure,omitempty"`
-	TotalAmount float64 `json:"total_amount,omitempty"`
+	TotalAmount float64 `json:"total_amount"`
 }
 
 type CashOut struct {
