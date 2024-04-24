@@ -1,6 +1,6 @@
 package preapproval
 
-import "time"
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 // UpdateRequest represents a request for updating a pre approval.
 type UpdateRequest struct {
@@ -16,8 +16,8 @@ type UpdateRequest struct {
 
 // AutoRecurringUpdateRequest represents the recurrence settings.
 type AutoRecurringUpdateRequest struct {
-	StartDate *time.Time `json:"start_date,omitempty"`
-	EndDate   *time.Time `json:"end_date,omitempty"`
+	StartDate *date.ApiTimeFormat `json:"start_date,omitempty"`
+	EndDate   *date.ApiTimeFormat `json:"end_date,omitempty"`
 
 	TransactionAmount float64 `json:"transaction_amount,omitempty"`
 }

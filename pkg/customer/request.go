@@ -1,13 +1,13 @@
 package customer
 
-import "time"
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 // Request represents a request for creating a customer.
 type Request struct {
 	Address        *AddressRequest        `json:"address,omitempty"`
 	Identification *IdentificationRequest `json:"identification,omitempty"`
 	Phone          *PhoneRequest          `json:"phone,omitempty"`
-	DateRegistered *time.Time             `json:"date_registered,omitempty"`
+	DateRegistered *date.ApiTimeFormat    `json:"date_registered,omitempty"`
 
 	DefaultAddress string `json:"default_address,omitempty"`
 	DefaultCard    string `json:"default_card,omitempty"`

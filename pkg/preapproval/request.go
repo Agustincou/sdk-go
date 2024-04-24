@@ -1,6 +1,6 @@
 package preapproval
 
-import "time"
+import "github.com/mercadopago/sdk-go/pkg/date"
 
 // Request represents a request for creating a pre approval.
 type Request struct {
@@ -18,9 +18,9 @@ type Request struct {
 
 // AutoRecurringRequest represents the recurrence settings.
 type AutoRecurringRequest struct {
-	FreeTrial *FreeTrialRequest `json:"free_trial,omitempty"`
-	StartDate *time.Time        `json:"start_date,omitempty"`
-	EndDate   *time.Time        `json:"end_date,omitempty"`
+	FreeTrial *FreeTrialRequest   `json:"free_trial,omitempty"`
+	StartDate *date.ApiTimeFormat `json:"start_date,omitempty"`
+	EndDate   *date.ApiTimeFormat `json:"end_date,omitempty"`
 
 	CurrencyID        string  `json:"currency_id,omitempty"`
 	FrequencyType     string  `json:"frequency_type,omitempty"`
